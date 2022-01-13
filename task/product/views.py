@@ -35,17 +35,6 @@ def create_product(request):
                         status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def product_filter(request, name):
-    try:
-        user = User.objects.get(username=name)
-        product = ProductModel.objects.filter(seller=user).order_by('price')
-        serializer = ProductSerializer(product, many=True)
-        return Response(serializer.data)
-    except:
-        return Response({'details': 'error'},
-                        status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET'])
